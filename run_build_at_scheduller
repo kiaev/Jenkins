@@ -3,9 +3,9 @@
 properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent { 
+    agent {
         label 'master'
-        }
+    }
     triggers {
         pollSCM('*/1 * * * *')
     }
@@ -24,16 +24,15 @@ pipeline {
                 }
             }
         }
-    stages {
         stage("create docker image") {
             steps {
-                echo "========= start buiding image ========="
-                dir ('docker/toolbox') {
-                    sh 'docker build -t kiaev/toolbox:mybuild . '
-                }
+                    echo "========= start buiding image ========="
+                    dir ('docker/toolbox') {
+                        sh 'docker build -t kiaev/toolbox:mybuild . '
+                    }
             }
         }
-     stage("docker push") {
+        stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''

@@ -14,6 +14,17 @@ pipeline {
         timestamps()
     }
     stages {
+        stage("docker login") {
+            steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'mrfoxhound', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
+                }
+            }
+        }
+    stages {
         stage("create docker image") {
             steps {
                 echo "========= start buiding image ========="
@@ -22,6 +33,13 @@ pipeline {
                 }
             }
         }
-        
+     stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push kiaev/toolbox:mybuild
+                '''
+            }
+        }
     }
 }

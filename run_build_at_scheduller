@@ -28,7 +28,7 @@ pipeline {
             steps {
                     echo "========= start buiding image ========="
                     dir ('docker/toolbox') {
-                        sh 'docker build -t kiaev/toolbox:mybuild . '
+                        sh 'docker build -t mrfoxhound/test:mybuild . '
                     }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push kiaev/toolbox:mybuild
+                docker push mrfoxhound/test:mybuild
                 '''
             }
         }

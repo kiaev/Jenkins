@@ -29,7 +29,7 @@ pipeline {
             steps {
                     echo "========= start buiding image ========="
                     dir ('docker/toolbox') {
-                        sh 'docker build -t mrfoxhound:mybuild . '
+                        sh 'docker build -t mrfoxhound/test:mybuild . '
                     }
             }
         }

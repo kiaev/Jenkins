@@ -1,5 +1,5 @@
 FROM centos
-RUN yum install -y httpd && yum install net-tools -y && yum install postgresql-server
+RUN yum install -y httpd && yum install net-tools -y && yum install postgresql-server -y
 RUN echo 'Hello Docker Apache v.1' > /var/www/html/index.html
 CMD ["/usr/sbin/httpd","-DFOREGROUND"]
 EXPOSE 80

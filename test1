@@ -19,6 +19,7 @@ pipeline {
         stage("First step") {
             steps {
                 sh 'ssh root@host1 \' /opt/wildfly/bin/jboss-cli.sh --connect --user=rza --password=123456 --command=deployment-info \''
+                echo "${hostName}"
             }
         }  
     }

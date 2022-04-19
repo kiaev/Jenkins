@@ -16,7 +16,8 @@ pipeline {
                 echo " ============== git clone project =================="
                 
                 sh """
-		     git clone https://github.com/kiaev/weatherApp.git ./weather_dockerfile 
+		     git clone https://github.com/kiaev/weatherApp.git 
+		     mv weatherApp ./weather_dockerfile 
                 """   
             }
         }

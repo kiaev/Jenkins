@@ -11,15 +11,13 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("docker login") {
+        stage("git clone project") {
             steps {
-                echo " ============== docker login =================="
-                withCredentials([usernamePassword(credentialsId: 'dockerHub_kiaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh """
-                    docker login -u $USERNAME -p $PASSWORD
-                    """
-                }
+                echo " ============== git clone project =================="
                 
+                sh """
+					git clone https://github.com/kiaev/weatherApp.git
+                """   
             }
         }
         stage("create docker image") {
@@ -28,6 +26,17 @@ pipeline {
                     dir ('weather_dockerfile') {
                         sh 'docker build -t weather_app:1.0.0 . '
                     }
+            }
+        }
+		stage("docker login") {
+            steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'dockerHub_kiaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
+                }
+                
             }
         }
         stage("docker push") {

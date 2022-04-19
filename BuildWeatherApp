@@ -14,19 +14,17 @@ pipeline {
         stage("git clone project") {
             steps {
                 echo " ============== git clone project =================="
-		dir ('weather_dockerfile'){
-                	sh """
-		     		git clone https://github.com/kiaev/weatherApp.git  
-                	"""   
-		}
+                sh """
+			git clone https://github.com/kiaev/weatherApp.git  
+                """   
             }
         }
         stage("create docker image") {
             steps {
-                    echo "========= start buiding image ========="
-                    dir ('weather_dockerfile') {
+		    echo "========= start buiding image ========="
+                    sh """
                         sh 'docker build -t weatherApp . '
-                    }
+                    """
             }
         }
 		stage("docker login") {

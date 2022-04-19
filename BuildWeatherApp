@@ -3,22 +3,40 @@
 properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent { 
+    agent {
         label 'master'
-        }
+    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
-        stage("create docker image") {
+        stage("docker login") {
             steps {
-                echo "========= start buiding image ========="
-                dir ('weather_dockerfile') {
-                    sh 'docker build . '
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'dockerHub_kiaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
                 }
+                
             }
         }
-        
+        stage("create docker image") {
+            steps {
+                    echo "========= start buiding image ========="
+                    dir ('weather_dockerfile') {
+                        sh 'docker build -t weather_app:1.0.0 . '
+                    }
+            }
+        }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push mrfoxhound/test:weather_app:1.0.0
+                '''
+            }
+        }
     }
 }

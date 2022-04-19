@@ -1,0 +1,24 @@
+#!groovy
+// Check host1 properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("create docker image") {
+            steps {
+                echo "========= start buiding image ========="
+                dir ('weather_dockerfile') {
+                    sh 'docker build . '
+                }
+            }
+        }
+        
+    }
+}

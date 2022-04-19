@@ -25,7 +25,7 @@ pipeline {
             steps {
                     echo "========= start buiding image ========="
                     dir ('weather_dockerfile') {
-                        sh 'docker build -t weather_app:1.0.0 . '
+                        sh 'docker build -t weatherApp . '
                     }
             }
         }

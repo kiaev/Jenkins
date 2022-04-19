@@ -44,7 +44,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push mrfoxhound/build:weather_app:1.0.0
+                docker push mrfoxhound/build:weatherApp
                 '''
             }
         }

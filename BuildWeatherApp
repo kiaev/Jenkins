@@ -25,7 +25,7 @@ pipeline {
             steps {
                     echo "========= start buiding image ========="
                     dir ('weather_dockerfile') {
-                        sh 'docker build -t weatherApp . '
+                        sh 'docker build -t weather-app . '
                     }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push mrfoxhound/build:weatherApp
+                docker push mrfoxhound/build:weather-app
                 '''
             }
         }

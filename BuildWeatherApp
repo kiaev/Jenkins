@@ -14,10 +14,11 @@ pipeline {
         stage("git clone project") {
             steps {
                 echo " ============== git clone project =================="
-                
-                sh """
-		     git clone https://github.com/kiaev/weatherApp.git  
-                """   
+		dir ('weather_dockerfile'){
+                	sh """
+		     		git clone https://github.com/kiaev/weatherApp.git  
+                	"""   
+		}
             }
         }
         stage("create docker image") {

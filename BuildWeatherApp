@@ -11,6 +11,16 @@ pipeline {
         timestamps()
     }
     stages {
+		stage("clearing old build") {
+            steps {
+                echo " ============== clearing old build =================="
+                dir ('weather_dockerfile') {
+					sh """
+						rm -R * 
+					"""
+				}					
+            }
+        }
         stage("git clone project") {
             steps {
                 echo " ============== git clone project =================="

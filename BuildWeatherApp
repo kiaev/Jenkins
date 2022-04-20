@@ -16,7 +16,7 @@ pipeline {
                 echo " ============== clearing old build =================="
                 dir ('weather_dockerfile') {
 					sh """
-						rm -R * 
+						rm -R weatherApp 
 					"""
 				}					
             }

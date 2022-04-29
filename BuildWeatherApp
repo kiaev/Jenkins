@@ -32,8 +32,10 @@ pipeline {
             }
         }
 		stage('SonarQube analysis') {
-			withSonarQubeEnv('My SonarQube Server') {
-				sh "tool 'SonarScanner 2.14' /bin/sonar-scanner"
+			steps {
+				withSonarQubeEnv('My SonarQube Server') {
+					sh "tool 'SonarScanner 2.14' /bin/sonar-scanner"
+				}
 			}
 		}
         stage("create docker image") {

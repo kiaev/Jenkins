@@ -32,9 +32,8 @@ pipeline {
             }
         }
 		stage('SonarQube analysis') {
-			def scannerHome = tool 'SonarScanner 2.14';
 			withSonarQubeEnv('My SonarQube Server') {
-				sh "${scannerHome}/bin/sonar-scanner"
+				sh "tool 'SonarScanner 2.14' /bin/sonar-scanner"
 			}
 		}
         stage("create docker image") {

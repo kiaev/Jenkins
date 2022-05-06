@@ -47,6 +47,7 @@ pipeline {
 							-Dsonar.login=$sonar.ProjectToken
 					"""
 				
+				}
 			}
 		}
         stage("create docker image") {

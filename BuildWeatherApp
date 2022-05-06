@@ -34,14 +34,14 @@ pipeline {
 		stage('SonarQube analysis') {
 			steps {
 				echo " ============== git clone project =================="
-                withCredentials([string(credentialsId: 'sonar.ProjectToken', variable: 'ProjectToken' )]) {
+                withCredentials([string(credentialsId: 'sonar.ProjectToken', variable: 'ProjectToken')],[string(credentialsId: 'sonar.ProjectKey', variable: 'ProjectKey')]) {
 					sh """
 						sudo docker run \
 							--rm \
 							-v "/var/lib/jenkins/workspace/weathetAppBuild/weather_dockerfile:/usr/src" \
 							sonarsource/sonar-scanner-cli:4.6 \
 							sonar-scanner \
-							-Dsonar.projectKey=weather \
+							-Dsonar.projectKey='${ProjectKey}' \
 							-Dsonar.sources=. \
 							-Dsonar.host.url=http://192.168.31.88:9000 \
 							-Dsonar.login='${ProjectToken}'

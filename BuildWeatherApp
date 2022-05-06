@@ -33,7 +33,7 @@ pipeline {
         }
 		stage('SonarQube analysis') {
 			steps {
-				echo " ============== git clone project =================="
+				echo " ============== SonarQube analysis =================="
                 withCredentials([string(credentialsId: 'sonar.ProjectToken', variable: 'ProjectToken')]) {
 					sh """
 						sudo docker run \

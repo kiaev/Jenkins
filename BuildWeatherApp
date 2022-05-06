@@ -33,16 +33,20 @@ pipeline {
         }
 		stage('SonarQube analysis') {
 			steps {
-				script {
-					scannerHome = tool 'SonarQube';
-				}
-				withSonarQubeEnv('SonarQube') {
+				echo " ============== git clone project =================="
+                dir ('weather_dockerfile') {
 					sh """
-						${scannerHome}/bin/sonar-scanner \
-						-Dsonar.projectKey=1a10bbcae9466b16041fd72f4cb329edda0266f6 \
-						-Dsonar.sources=. \
+						sudo docker run \
+							--rm \
+							-v "/var/lib/jenkins/workspace/weathetAppBuild/weather_dockerfile:/usr/src" \
+							sonarsource/sonar-scanner-cli:4.6 \
+							sonar-scanner \
+							-Dsonar.projectKey=$sonar.projectKey \
+							-Dsonar.sources=. \
+							-Dsonar.host.url=http://192.168.31.88:9000 \
+							-Dsonar.login=$sonar.ProjectToken
 					"""
-				}
+				
 			}
 		}
         stage("create docker image") {

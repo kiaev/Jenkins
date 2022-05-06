@@ -34,7 +34,7 @@ pipeline {
 		stage('SonarQube analysis') {
 			steps {
 				echo " ============== git clone project =================="
-                dir ('weather_dockerfile') {
+                withCredentials([string(credentialsId: 'sonar.ProjectToken')]) dir ('weather_dockerfile') {
 					sh """
 						sudo docker run \
 							--rm \
@@ -44,7 +44,7 @@ pipeline {
 							-Dsonar.projectKey=weather \
 							-Dsonar.sources=. \
 							-Dsonar.host.url=http://192.168.31.88:9000 \
-							-Dsonar.login=e4be19908ffdf07b9ff5fb419b2e3229fe81d0fc
+							-Dsonar.login=$sonar.ProjectToken
 					"""
 				
 				}
